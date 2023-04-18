@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Point SoftWare</title>
+    <link rel="icon" type="image/x-icon" href="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/277469600_283605280615333_5295070569266754861_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Nd67NM0AhtkAX9hKhE4&_nc_ht=scontent.fhan2-4.fna&oh=00_AfAJuKLzh1536V9T9LfokoHJg-0kOw8rvcAI0AB-dy7Gvg&oe=6442C965">
+
+</head>
+<body>
+    <nav id="my-menu" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="pointSoftware.html">Point SoftWare
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-primary mb-3" id="addBtn">Add</button>
+            <button class="btn btn-danger mb-3" id="removeBtn">Remove</button>
+          </div>
+        </div>
+        <div class="row" id="divContainer">
+          <!-- Divs will be added here -->
+        </div>
+        
+      </div>
+      <!-- Add Bootstrap JS -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+      <script>
+        window.onload = function() {
+          // Initialize div count
+          var divCount = 0;
+    
+          // Get Add button
+          var addBtn = document.getElementById('addBtn');
+    
+          // Get Remove button
+          var removeBtn = document.getElementById('removeBtn');
+    
+          // Get div container
+          var divContainer = document.getElementById('divContainer');
+    
+          // Add click event to Add button
+          addBtn.addEventListener('click', function() {
+            // Increment div count
+            divCount++;
+          
+            // Create new div
+            var newDiv = document.createElement('div');
+            newDiv.className = 'col-md-4';
+            newDiv.id = 'div' + divCount;
+          
+            // Create new card
+            var newCard = document.createElement('div');
+            newCard.className = 'card';
+          
+            // Create new card body
+            var newCardBody = document.createElement('div');
+            newCardBody.className = 'card-body';
+          
+            // Create label for player
+            var playerLabel = document.createElement('label');
+            playerLabel.innerHTML = 'Player: ';
+          
+            // Create input for player name
+            var playerNameInput = document.createElement('input');
+            playerNameInput.type = 'text';
+            playerNameInput.placeholder = 'Enter player name';
+          
+            // Create label for score
+            var scoreLabel = document.createElement('label');
+            scoreLabel.innerHTML = 'Score: ';
+          
+            // Create input for score
+            var scoreInput = document.createElement('input');
+            scoreInput.type = 'number';
+            scoreInput.value = 0;
+          
+            // Add event listener to score input
+            scoreInput.addEventListener('keydown', function(event) {
+              // If Enter key is pressed
+              if (event.keyCode === 13) {
+                event.preventDefault();
+          
+                // Get current score
+                var currentScore = parseInt(scoreInput.value);
+          
+                // Add or subtract score based on input value
+                currentScore += parseInt(scoreInput.value);
+                    
+                // If score is negative, change text color to red
+                if (currentScore < 0) {
+                  scoreInput.style.color = 'red';
+                } else {
+                  scoreInput.style.color = 'black';
+                }
+              }
+            });
+          
+            // Create label for total score
+            var totalScoreLabel = document.createElement('label');
+            totalScoreLabel.innerHTML = 'Total Score: ';
+          
+            // Create input for total score
+            var totalScoreInput = document.createElement('input');
+            totalScoreInput.type = 'number';
+            totalScoreInput.value = 0;
+          
+            // Add event listener to score input
+            scoreInput.addEventListener('keydown', function(event) {
+              // If Enter key is pressed
+              if (event.keyCode === 13) {
+                event.preventDefault();
+          
+                // Get current total score
+                var currentTotalScore = parseInt(totalScoreInput.value);
+          
+                // Add or subtract score based on input value
+                currentTotalScore += parseInt(scoreInput.value);
+          
+                totalScoreInput.value = currentTotalScore;
+          
+                // If total score is negative, change text color to red
+                if (currentTotalScore < 0) {
+                  totalScoreInput.style.color = 'red';
+                } else {
+                  totalScoreInput.style.color = 'black';
+                }
+              }
+            });
+          
+            // Append elements to new card body
+            newCardBody.appendChild(playerLabel);
+            newCardBody.appendChild(playerNameInput);
+            newCardBody.appendChild(document.createElement('br'));
+            newCardBody.appendChild(scoreLabel);
+            newCardBody.appendChild(scoreInput);
+            newCardBody.appendChild(document.createElement('br'));
+            newCardBody.appendChild(totalScoreLabel);
+            newCardBody.appendChild(totalScoreInput);
+          
+            // Append new card body to new card
+            newCard.appendChild(newCardBody);
+          
+            // Append new card to new div
+            newDiv.appendChild(newCard);
+          
+            // Append new div to div container
+            divContainer.appendChild(newDiv);
+          });
+          removeBtn.addEventListener('click', function() {
+            // If there are no divs to remove, return
+            if (divCount === 0) {
+              return;
+            }
+        
+            // Get last div
+            var lastDiv = document.getElementById('div' + divCount);
+        
+            // Remove last div
+            divContainer.removeChild(lastDiv);
+        
+            // Decrement div count
+            divCount--;
+          });
+        }    
+      </script>
+    
+</body>
+</html>
